@@ -11,9 +11,7 @@
                  @click="toggleEye">
               Eye color
               <ul class="control__list control__list--filter"
-                  v-click-outside="hide"
-                  v-show="opened === 'eye'"
-                  @click.stop="">
+                  v-show="isEyeOpen">
                 <li class="control__item" @click="filterEyeColor('blue')">
                   blue
                 </li>
@@ -35,8 +33,7 @@
                  @click="toggleHeight">
               Height
               <div class="control__item control__item--inputs"
-                   v-show="opened === 'height'"
-                   v-click-outside="hide"
+                   v-show="isHeightOpen"
                    @click.stop="">
                 <div class="control__wrapper">
                   <input
@@ -58,7 +55,7 @@
             <div class="control__property" @click="toggleAge">
               Age
               <div class="control__item control__item--inputs"
-                   v-show="opened === 'age'"
+                   v-show="isAgeOpen"
                    @click.stop=""
               >
                 <div class="control__wrapper">
@@ -82,10 +79,9 @@
           <div class="control__properties control__properties--end">
             <div
               class="control__wrapper"
-              v-click-outside="hide"
-              @click.stop="toggleSort">
+              @click="toggleSort">
               Sort by
-              <ul class="control__list" v-show="opened === 'sort'">
+              <ul class="control__list" v-show="isSortOpen">
                 <li class="control__item" @click="sortedWasDone('birth_year')">
                   age
                 </li>
@@ -113,7 +109,6 @@
 </template>
 
 <script>
-import ClickOutside from 'vue-click-outside';
 import ListOfPeople from './ListOfPeople.vue';
 
 export default {
@@ -123,6 +118,10 @@ export default {
   data() {
     return {
       opened: false,
+      isHeightOpen: false,
+      isAgeOpen: false,
+      isEyeOpen: false,
+      isSortOpen: false,
       sortedBy: '',
       eyeColor: '',
       minHeight: '96',
@@ -134,44 +133,40 @@ export default {
 
   methods: {
     toggleSort() {
-      setTimeout(() => {
-        this.opened = 'sort';
-      }, 0);
+      this.isSortOpen = !this.isSortOpen;
+      this.isAgeOpen = false;
+      this.isHeightOpen = false;
+      this.isEyeOpen = false;
     },
 
     toggleEye() {
-      setTimeout(() => {
-        this.opened = 'eye';
-      }, 0);
+      this.isEyeOpen = !this.isEyeOpen;
+      this.isAgeOpen = false;
+      this.isHeightOpen = false;
+      this.isSortOpen = false;
     },
 
     toggleHeight() {
-      setTimeout(() => {
-        this.opened = 'height';
-      }, 0);
+      this.isHeightOpen = !this.isHeightOpen;
+      this.isAgeOpen = false;
+      this.isEyeOpen = false;
+      this.isSortOpen = false;
     },
 
     toggleAge() {
-      setTimeout(() => {
-        this.opened = 'age';
-      }, 0);
+      this.isAgeOpen = !this.isAgeOpen;
+      this.isHeightOpen = false;
+      this.isEyeOpen = false;
+      this.isSortOpen = false;
     },
 
     filterEyeColor(color) {
       this.eyeColor = color;
     },
 
-    hide() {
-      this.opened = false;
-    },
-
     sortedWasDone(property) {
       this.sortedBy = property;
     },
-  },
-
-  directives: {
-    ClickOutside,
   },
 };
 </script>
@@ -207,7 +202,7 @@ export default {
       padding: 16px 59px 16px 20px;
       position: absolute;
       left: -20px;
-      top: 16px;
+      top: 25px;
       z-index: 1;
       background: #fff;
       border-radius: 6px;
@@ -225,6 +220,7 @@ export default {
       &--inputs {
         position: absolute;
         right: calc(50% - 125px);
+        top: 25px;
         width: 250px;
         padding: 20px 20px 25px 20px;
         background: #fff;

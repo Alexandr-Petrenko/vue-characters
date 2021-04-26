@@ -12,25 +12,22 @@
         <div class="header__lang">
         <span
           class="header__lang-selected"
-          v-click-outside="hide"
-          @click.stop="toggle"
         >
           En
         </span>
           <ul class="header__lang-list"
               :style="{display: display}"
-              v-show="opened"
           >
-            <li class="header__lang-option" @click="setValue">En</li>
+            <li class="header__lang-option">En</li>
           </ul>
         </div>
         <a href="#" class="header__log-in">Log In</a>
         <button class="header__button">Sign Up</button>
         <div class="header__burger"
-             @click.stop="burgerChangeHandler"
-             v-click-outside="hide"
-        >
-          <div class="header__burger-menu" v-if="opened">
+             @click="burgerChangeHandler">
+          <div
+            class="header__burger-menu"
+            v-if="isBurgerOpened">
             <span class="header__burger-lang">
               En
             </span>
@@ -43,13 +40,11 @@
 </template>
 
 <script>
-import ClickOutside from 'vue-click-outside';
-
 export default {
   name: 'Header',
   data() {
     return {
-      opened: false,
+      isBurgerOpened: false,
       display: 'none',
       isBurgerOpen: false,
     };
@@ -60,31 +55,9 @@ export default {
       this.display = this.display === 'none' ? 'block' : 'none';
     },
 
-    setValue() {
-      this.display = 'none';
-    },
-
-    toggle() {
-      this.opened = true;
-      console.log(1);
-    },
-
-    hide() {
-      this.opened = false;
-      console.log('hide');
-    },
-
     burgerChangeHandler() {
-      setTimeout(() => {
-        console.log(this.opened);
-        this.opened = !this.opened;
-        console.log(this.opened);
-      }, 0);
+      this.isBurgerOpened = !this.isBurgerOpened;
     },
-  },
-
-  directives: {
-    ClickOutside,
   },
 };
 

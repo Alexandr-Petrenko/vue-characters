@@ -13,8 +13,7 @@
         <span
           class="header__lang-selected"
           v-click-outside="hide"
-          @click="toggle"
-          @dblclick.prevent=""
+          @click.stop="toggle"
         >
           En
         </span>
@@ -28,10 +27,11 @@
         <a href="#" class="header__log-in">Log In</a>
         <button class="header__button">Sign Up</button>
         <div class="header__burger"
-             @click="burgerChangeHandler"
-             v-click-outside="burgerChangeHandler"
+             @click.stop="burgerChangeHandler"
+             @dblclick.prevent=""
+             v-click-outside="hide"
         >
-          <div class="header__burger-menu" v-if="isBurgerOpen">
+          <div class="header__burger-menu" v-if="opened">
             <span class="header__burger-lang">
               En
             </span>
@@ -67,6 +67,7 @@ export default {
 
     toggle() {
       this.opened = true;
+      console.log(1);
     },
 
     hide() {
@@ -74,7 +75,11 @@ export default {
     },
 
     burgerChangeHandler() {
-      this.isBurgerOpen = !this.isBurgerOpen;
+      setTimeout(() => {
+        console.log(this.opened);
+        this.opened = !this.opened;
+        console.log(this.opened);
+      }, 0);
     },
   },
 

@@ -236,6 +236,7 @@ export default {
     &__property {
       position: relative;
       margin-right: -40px;
+      cursor: pointer;
 
       &:after {
         position: absolute;

@@ -75,7 +75,6 @@ export default {
 
     burgerChangeHandler() {
       this.isBurgerOpen = !this.isBurgerOpen;
-      console.log(this.isBurgerOpen);
     },
   },
 
@@ -152,10 +151,16 @@ export default {
       padding: 0;
       list-style: none;
       cursor: pointer;
+      position: relative;
 
       @media (max-width: 499px) {
         display: none;
       }
+    }
+
+    &__lang-option {
+      position: absolute;
+      bottom: -17px;
     }
 
     &__log-in {

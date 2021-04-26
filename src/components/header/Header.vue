@@ -28,7 +28,6 @@
         <button class="header__button">Sign Up</button>
         <div class="header__burger"
              @click.stop="burgerChangeHandler"
-             @dblclick.prevent=""
              v-click-outside="hide"
         >
           <div class="header__burger-menu" v-if="opened">
@@ -72,6 +71,7 @@ export default {
 
     hide() {
       this.opened = false;
+      console.log('hide');
     },
 
     burgerChangeHandler() {

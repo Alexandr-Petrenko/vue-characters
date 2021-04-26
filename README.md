@@ -1,3 +1,5 @@
+[Link on demo](https://alexandr-petrenko.github.io/vue-characters/),
+
 # star-wars
 
 ## Project setup
